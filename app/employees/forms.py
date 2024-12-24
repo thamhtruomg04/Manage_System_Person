@@ -20,3 +20,10 @@ class AttendanceForm(FlaskForm):
     check_in = DateTimeField('Check In', validators=[DataRequired()], format='%Y-%m-%d %H:%M:%S')
     check_out = DateTimeField('Check Out', format='%Y-%m-%d %H:%M:%S')
     submit = SubmitField('Save')
+
+
+class SalaryForm(FlaskForm):
+    base_salary = FloatField('Base Salary', validators=[DataRequired()])
+    bonus = FloatField('Bonus', default=0.0)
+    deductions = FloatField('Deductions', default=0.0)
+    submit = SubmitField('Save')

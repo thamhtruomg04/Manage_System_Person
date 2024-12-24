@@ -8,6 +8,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Position</th>
                         <th>Department</th>
@@ -19,6 +20,7 @@
                 <tbody>
                     {% for employee in employees %}
                     <tr>
+                        <td>{{ loop.index }}</td> <!-- Số thứ tự -->
                         <td>{{ employee.name }}</td>
                         <td>{{ employee.position }}</td>
                         <td>{{ employee.department }}</td>
@@ -30,6 +32,8 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                             <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-sm">Manage Attendance</a>
+                            <a href="{{ url_for('employees.manage_salary', employee_id=employee.id) }}" class="btn btn-warning btn-sm">Manage Salary</a>
+                            
                         </td>
                     </tr>
                     {% endfor %}
