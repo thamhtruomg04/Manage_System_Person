@@ -9,18 +9,19 @@ body {
 
 /* Cài đặt cho navbar */
 .navbar {
+    margin-bottom: 20px;
     background-color: #4CAF50; /* Màu nền chủ đạo */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
 }
 
 .navbar-brand, .nav-link {
-    color: #007bff !important; /* Màu xanh da trời cho chữ */
+    color: #4CAF50 !important; /* Màu trắng cho chữ */
     font-weight: bold; /* Chữ đậm */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Thêm bóng chữ để rõ hơn */
 }
 
 .navbar-brand:hover, .nav-link:hover {
-    color: #0056b3 !important; /* Màu khi hover */
+    color: #1fa531 !important; /* Màu khi hover */
 }
 
 /* Cài đặt cho container */
@@ -31,7 +32,11 @@ body {
 }
 
 /* Cài đặt cho bảng */
-table {
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
     width: 100%;
     margin-bottom: 1rem;
     border-collapse: collapse;
@@ -56,9 +61,11 @@ tbody tr:nth-of-type(odd) {
 .btn {
     padding: 10px 20px;
     border-radius: 5px;
+    width: 100%;
+    display: block; /* Đảm bảo các nút chiếm hết chiều rộng của container */
+    text-align: center;
 }
 
-/* Nút màu xanh da trời */
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
@@ -67,17 +74,6 @@ tbody tr:nth-of-type(odd) {
 .btn-primary:hover {
     background-color: #0056b3;
     border-color: #004085;
-}
-
-/* Nút màu cam */
-.btn-success {
-    background-color: #ff9800;
-    border-color: #ff9800;
-}
-
-.btn-success:hover {
-    background-color: #e68900;
-    border-color: #cc7600;
 }
 
 .btn-warning {
@@ -98,16 +94,6 @@ tbody tr:nth-of-type(odd) {
 .btn-danger:hover {
     background-color: #d32f2f; /* Màu nền khi hover cho nút nguy hiểm */
     border-color: #c62828;
-}
-
-/* Cài đặt cho form */
-.form-control {
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-}
-
-.form-group label {
-    font-weight: bold;
 }
 
 /* Cài đặt cho tiêu đề */
@@ -156,11 +142,81 @@ h1, h2, h3, h4, h5, h6 {
     border-color: #4CAF50;
 }
 
-
 /* Cài đặt cho nút nhỏ */
 .btn-xs {
     padding: 5px 10px;
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px;
+}
+
+.hero {
+    background: linear-gradient(45deg, #007bff, #6c757d);
+    color: white;
+    padding: 50px 0;
+}
+
+.card {
+    margin-top: 20px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+footer {
+    padding: 20px 0;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Media queries cho màn hình nhỏ */
+@media (max-width: 998px) {
+    .container {
+        padding: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: scroll;
+    }
+
+    .table thead {
+        display: none; /* Ẩn tiêu đề bảng */
+    }
+
+    .table tbody, .table tr, .table td {
+        display: block; /* Hiển thị như khối block */
+        width: 100%;
+    }
+
+    .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Hiển thị nhãn cột */
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+    }
 }

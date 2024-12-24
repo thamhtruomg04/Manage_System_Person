@@ -1,45 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center">Employees</h2>
-    <div class="row">
-        <div class="col-md-12">
-            <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary btn-xs mb-3">Add Employee</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Department</th>
-                        <th>Hire Date</th>
-                        <th>Salary</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for employee in employees %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ employee.name }}</td>
-                        <td>{{ employee.position }}</td>
-                        <td>{{ employee.department }}</td>
-                        <td>{{ employee.hire_date.strftime('%Y-%m-%d') }}</td>
-                        <td>{{ employee.salary }}</td>
-                        <td>
-                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-info btn-xs">Edit</a>
-                            <form method="POST" action="{{ url_for('employees.delete_employee', employee_id=employee.id) }}" style="display: inline;">
-                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+    <h1 class="text-center">Employee List</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                    <th>Hire Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td data-label="Name">{{ employee.name }}</td>
+                    <td data-label="Position">{{ employee.position }}</td>
+                    <td data-label="Salary">{{ employee.salary }}</td>
+                    <td data-label="Hire Date">{{ employee.hire_date }}</td>
+                    <td data-label="Actions">
+                        {% if current_user.is_admin %}
+                        <div class="btn-group-vertical" role="group" aria-label="Actions">
+                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                            <form action="{{ url_for('employees.delete_employee', employee_id=employee.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
                             </form>
-                            <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-xs">Manage Attendance</a>
-                            <a href="{{ url_for('employees.manage_salary', employee_id=employee.id) }}" class="btn btn-warning btn-xs">Manage Salary</a>
-                            <a href="{{ url_for('employees.manage_leave', employee_id=employee.id) }}" class="btn btn-success btn-xs">Manage Leave</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                            <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-sm btn-block">Track Attendance</a>
+                            <a href="{{ url_for('employees.manage_salary', employee_id=employee.id) }}" class="btn btn-primary btn-sm btn-block">Manage Salaries</a>
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% if current_user.is_admin %}
+    <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary">Add Employee</a>
+    {% endif %}
 </div>
 {% endblock %}
