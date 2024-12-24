@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, FloatField, DateField, SubmitField
+from wtforms import StringField, DateTimeField, FloatField, DateField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email
+
 
 class EmployeeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
@@ -27,3 +28,14 @@ class SalaryForm(FlaskForm):
     bonus = FloatField('Bonus', default=0.0)
     deductions = FloatField('Deductions', default=0.0)
     submit = SubmitField('Save')
+
+
+from wtforms import DateField, StringField, SelectField, SubmitField
+
+
+class LeaveForm(FlaskForm):
+    start_date = DateField('Start Date', validators=[DataRequired()], format='%Y-%m-%d')
+    end_date = DateField('End Date', validators=[DataRequired()], format='%Y-%m-%d')
+    reason = StringField('Reason', validators=[DataRequired(), Length(max=255)])
+    status = SelectField('Status', choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')])
+    submit = SubmitField('Submit')

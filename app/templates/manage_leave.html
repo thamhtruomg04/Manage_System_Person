@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Manage Leave for {{ employee.name }}</h1>
+    
+    <h2>Leave Requests</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Date Requested</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ loop.index }}</td> <!-- Số thứ tự -->
+                <td>{{ leave.start_date }}</td>
+                <td>{{ leave.end_date }}</td>
+                <td>{{ leave.reason }}</td>
+                <td>{{ leave.status }}</td>
+                <td>{{ leave.date_requested }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2 class="mt-5">Submit New Leave Request</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.start_date.label(class="form-control-label") }}
+            {{ form.start_date(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.end_date.label(class="form-control-label") }}
+            {{ form.end_date(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.reason.label(class="form-control-label") }}
+            {{ form.reason(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.status.label(class="form-control-label") }}
+            {{ form.status(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    <a href="{{ url_for('employees.list_employees') }}" class="btn btn-secondary mt-3">Back to Employee List</a>
+</div>
+{% endblock content %}

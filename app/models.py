@@ -62,3 +62,17 @@ class Salary(db.Model):
 
     def calculate_total_salary(self):
         return self.base_salary + self.bonus - self.deductions
+
+class Leave(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+    reason = db.Column(db.String(255), nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='Pending')
+    date_requested = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    employee = db.relationship('Employee', backref=db.backref('leaves', lazy=True))
+
+    def __repr__(self):
+        return f'<Leave {self.employee.name} from {self.start_date} to {self.end_date}>'

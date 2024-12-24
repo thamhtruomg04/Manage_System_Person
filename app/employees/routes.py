@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from app import db
-from app.models import Employee, Attendance, Salary
-from app.employees.forms import EmployeeForm, AttendanceForm, SalaryForm
+from app.models import Employee, Attendance, Salary, Leave
+from app.employees.forms import EmployeeForm, AttendanceForm, SalaryForm, LeaveForm
 
 employees = Blueprint('employees', __name__)
 
@@ -12,7 +12,7 @@ def list_employees():
     employees = Employee.query.all()
     return render_template('list_employees.html', employees=employees, title='List Employees')
 
-@employees.route("/employee/new", methods=['GET', 'POST'])
+@employees.route("/new", methods=['GET', 'POST'])
 @login_required
 def new_employee():
     form = EmployeeForm()
@@ -46,7 +46,7 @@ def new_employee():
         print(form.errors)  # In lỗi biểu mẫu ra console hoặc terminal
     return render_template('create_employee.html', title='New Employee', form=form, legend='New Employee')
 
-@employees.route("/employee/<int:employee_id>/update", methods=['GET', 'POST'])
+@employees.route("/<int:employee_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_employee(employee_id):
     employee = Employee.query.get_or_404(employee_id)
@@ -81,7 +81,7 @@ def update_employee(employee_id):
         form.status.data = employee.status
     return render_template('edit_employee.html', title='Update Employee', form=form, legend='Update Employee', employee=employee)
 
-@employees.route("/employee/<int:employee_id>/delete", methods=['POST'])
+@employees.route("/<int:employee_id>/delete", methods=['POST'])
 @login_required
 def delete_employee(employee_id):
     employee = Employee.query.get_or_404(employee_id)
@@ -90,11 +90,12 @@ def delete_employee(employee_id):
     flash('Employee has been deleted!', 'success')
     return redirect(url_for('employees.list_employees'))
 
-@employees.route("/employee/<int:employee_id>/attendance", methods=['GET', 'POST'])
+@employees.route("/<int:employee_id>/attendance", methods=['GET', 'POST'])
 @login_required
 def manage_attendance(employee_id):
     employee = Employee.query.get_or_404(employee_id)
     form = AttendanceForm()
+    attendances = Attendance.query.filter_by(employee_id=employee_id).all()
 
     if form.validate_on_submit():
         try:
@@ -110,24 +111,16 @@ def manage_attendance(employee_id):
         except Exception as e:
             print(f"Error occurred: {e}")
             flash('An error occurred while saving the attendance record.', 'danger')
-    else:
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(f"Error in {getattr(form, field).label.text}: {error}", 'danger')
-        print(form.errors)
+    return render_template('manage_attendance.html', form=form, employee=employee, attendances=attendances, total_sessions=len(attendances))
 
-    attendances = Attendance.query.filter_by(employee_id=employee_id).all()
-    total_sessions = len(attendances)  # Tính tổng số buổi làm việc
-    return render_template('manage_attendance.html', form=form, employee=employee, attendances=attendances, total_sessions=total_sessions)
-
-@employees.route("/employee/<int:employee_id>/attendance/view", methods=['GET'])
+@employees.route("/<int:employee_id>/attendance/view", methods=['GET'])
 @login_required
 def view_attendance(employee_id):
     employee = Employee.query.get_or_404(employee_id)
     attendances = Attendance.query.filter_by(employee_id=employee_id).all()
     return render_template('view_attendance.html', employee=employee, attendances=attendances)
 
-@employees.route("/employee/<int:employee_id>/salary", methods=['GET', 'POST'])
+@employees.route("/<int:employee_id>/salary", methods=['GET', 'POST'])
 @login_required
 def manage_salary(employee_id):
     employee = Employee.query.get_or_404(employee_id)
@@ -152,9 +145,27 @@ def manage_salary(employee_id):
             flash('An error occurred while saving the salary record.', 'danger')
     return render_template('manage_salary.html', form=form, employee=employee, salaries=salaries)
 
-@employees.route("/employee/<int:employee_id>/salary/view", methods=['GET'])
+@employees.route("/<int:employee_id>/leave", methods=['GET', 'POST'])
 @login_required
-def view_salary(employee_id):
+def manage_leave(employee_id):
     employee = Employee.query.get_or_404(employee_id)
-    salaries = Salary.query.filter_by(employee_id=employee_id).all()
-    return render_template('view_salary.html', employee=employee, salaries=salaries)
+    form = LeaveForm()
+    leaves = Leave.query.filter_by(employee_id=employee_id).all()
+
+    if form.validate_on_submit():
+        try:
+            leave = Leave(
+                employee_id=employee.id,
+                start_date=form.start_date.data,
+                end_date=form.end_date.data,
+                reason=form.reason.data,
+                status=form.status.data
+            )
+            db.session.add(leave)
+            db.session.commit()
+            flash('Leave request has been submitted!', 'success')
+            return redirect(url_for('employees.manage_leave', employee_id=employee.id))
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            flash('An error occurred while submitting the leave request.', 'danger')
+    return render_template('manage_leave.html', form=form, employee=employee, leaves=leaves)

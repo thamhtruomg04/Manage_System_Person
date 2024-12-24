@@ -155,3 +155,12 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #4CAF50; /* Màu chủ đạo cho link phân trang đang hoạt động */
     border-color: #4CAF50;
 }
+
+
+/* Cài đặt cho nút nhỏ */
+.btn-xs {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}

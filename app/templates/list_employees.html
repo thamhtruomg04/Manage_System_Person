@@ -4,7 +4,7 @@
     <h2 class="text-center">Employees</h2>
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary mb-3">Add Employee</a>
+            <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary btn-xs mb-3">Add Employee</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -20,20 +20,20 @@
                 <tbody>
                     {% for employee in employees %}
                     <tr>
-                        <td>{{ loop.index }}</td> <!-- Số thứ tự -->
+                        <td>{{ loop.index }}</td>
                         <td>{{ employee.name }}</td>
                         <td>{{ employee.position }}</td>
                         <td>{{ employee.department }}</td>
                         <td>{{ employee.hire_date.strftime('%Y-%m-%d') }}</td>
                         <td>{{ employee.salary }}</td>
                         <td>
-                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-info btn-sm">Edit</a>
+                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-info btn-xs">Edit</a>
                             <form method="POST" action="{{ url_for('employees.delete_employee', employee_id=employee.id) }}" style="display: inline;">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
                             </form>
-                            <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-sm">Manage Attendance</a>
-                            <a href="{{ url_for('employees.manage_salary', employee_id=employee.id) }}" class="btn btn-warning btn-sm">Manage Salary</a>
-                            
+                            <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-xs">Manage Attendance</a>
+                            <a href="{{ url_for('employees.manage_salary', employee_id=employee.id) }}" class="btn btn-warning btn-xs">Manage Salary</a>
+                            <a href="{{ url_for('employees.manage_leave', employee_id=employee.id) }}" class="btn btn-success btn-xs">Manage Leave</a>
                         </td>
                     </tr>
                     {% endfor %}
