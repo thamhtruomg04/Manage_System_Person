@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Employees</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary mb-3">Add Employee</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Department</th>
+                        <th>Hire Date</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.position }}</td>
+                        <td>{{ employee.department }}</td>
+                        <td>{{ employee.hire_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ employee.salary }}</td>
+                        <td>
+                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-info btn-sm">Edit</a>
+                            <form method="POST" action="{{ url_for('employees.delete_employee', employee_id=employee.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <a href="{{ url_for('employees.manage_attendance', employee_id=employee.id) }}" class="btn btn-secondary btn-sm">Manage Attendance</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

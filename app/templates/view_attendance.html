@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Attendance Records for {{ employee.name }}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendance in attendances %}
+            <tr>
+                <td>{{ attendance.date }}</td>
+                <td>{{ attendance.check_in }}</td>
+                <td>{{ attendance.check_out }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,157 @@
+/* Cài đặt chung cho body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+    color: #333; /* Màu chữ cơ bản */
+    margin: 0;
+    padding: 0;
+}
+
+/* Cài đặt cho navbar */
+.navbar {
+    background-color: #4CAF50; /* Màu nền chủ đạo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+}
+
+.navbar-brand, .nav-link {
+    color: #007bff !important; /* Màu xanh da trời cho chữ */
+    font-weight: bold; /* Chữ đậm */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Thêm bóng chữ để rõ hơn */
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #0056b3 !important; /* Màu khi hover */
+}
+
+/* Cài đặt cho container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cài đặt cho bảng */
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+thead th {
+    background-color: #4CAF50; /* Màu nền chủ đạo */
+    color: #fff;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
+
+/* Cài đặt cho nút */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Nút màu xanh da trời */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Nút màu cam */
+.btn-success {
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.btn-success:hover {
+    background-color: #e68900;
+    border-color: #cc7600;
+}
+
+.btn-warning {
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.btn-warning:hover {
+    background-color: #e68900;
+    border-color: #cc7600;
+}
+
+.btn-danger {
+    background-color: #e53935; /* Màu nền cho nút nguy hiểm */
+    border-color: #e53935;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f; /* Màu nền khi hover cho nút nguy hiểm */
+    border-color: #c62828;
+}
+
+/* Cài đặt cho form */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+/* Cài đặt cho tiêu đề */
+h1, h2, h3, h4, h5, h6 {
+    color: #4CAF50; /* Màu chủ đạo cho tiêu đề */
+}
+
+/* Cài đặt cho alert */
+.alert {
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Cài đặt cho phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #4CAF50; /* Màu chủ đạo cho link phân trang */
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+    color: #388E3C; /* Màu khi hover cho link phân trang */
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #4CAF50; /* Màu chủ đạo cho link phân trang đang hoạt động */
+    border-color: #4CAF50;
+}

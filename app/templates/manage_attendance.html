@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Manage Attendance for {{ employee.name }}</h1>
+    
+    <p>Total Sessions: {{ total_sessions }}</p> <!-- Hiển thị tổng số buổi -->
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendance in attendances %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ attendance.date }}</td>
+                <td>{{ attendance.check_in }}</td>
+                <td>{{ attendance.check_out }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="mt-5">Add New Attendance Record</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.check_in.label(class="form-control-label") }}
+            {{ form.check_in(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.check_out.label(class="form-control-label") }}
+            {{ form.check_out(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    <a href="{{ url_for('employees.list_employees') }}" class="btn btn-secondary mt-3">Back to Employee List</a>
+</div>
+{% endblock content %}

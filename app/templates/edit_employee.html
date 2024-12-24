@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Edit Employee</h1>
+        <form method="POST" action="{{ url_for('employees.update_employee', employee_id=employee.id) }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label(class="form-control-label") }}
+                {{ form.name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.position.label(class="form-control-label") }}
+                {{ form.position(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.department.label(class="form-control-label") }}
+                {{ form.department(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.hire_date.label(class="form-control-label") }}
+                {{ form.hire_date(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.salary.label(class="form-control-label") }}
+                {{ form.salary(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.phone.label(class="form-control-label") }}
+                {{ form.phone(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.address.label(class="form-control-label") }}
+                {{ form.address(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.contract_start.label(class="form-control-label") }}
+                {{ form.contract_start(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.contract_end.label(class="form-control-label") }}
+                {{ form.contract_end(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.status.label(class="form-control-label") }}
+                {{ form.status(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

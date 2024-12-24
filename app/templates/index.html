@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Employee List</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Hire Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.position }}</td>
+                <td>{{ employee.salary }}</td>
+                <td>{{ employee.hire_date }}</td>
+                <td>
+                    {% if current_user.is_admin %}
+                    <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('employees.delete_employee', employee_id=employee.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if current_user.is_admin %}
+    <a href="{{ url_for('employees.new_employee') }}" class="btn btn-primary">Add Employee</a>
+    {% endif %}
+</div>
+{% endblock %}
